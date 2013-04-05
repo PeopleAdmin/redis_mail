@@ -9,15 +9,8 @@ module RedisMail
 
     def deliver!(mail)
       mail.destinations.uniq.each do |to|
-        redis.sadd :mailboxes, to
-        redis.rpush "mailbox:#{to}", mail.to_s
+        RedisMail.deliver to, mail.to_s
       end
-    end
-
-    private
-
-    def redis
-      RedisMail.redis
     end
   end
 end

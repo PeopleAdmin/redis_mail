@@ -45,4 +45,9 @@ module RedisMail
   def deliveries_count_to(recipient)
     redis.llen("mailbox:#{recipient}")
   end
+
+  def deliver(recipient, message)
+    redis.sadd :mailboxes, recipient
+    redis.rpush "mailbox:#{recipient}", message
+  end
 end
