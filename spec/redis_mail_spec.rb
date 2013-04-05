@@ -50,6 +50,21 @@ describe RedisMail do
     end
   end
 
+  describe ".mailboxes" do
+    before do
+      send "someone@example.com", "Beta"
+      send "another@example.com", "Gamma"
+      send "someone@example.com", "Alpha"
+    end
+
+    it "returns a list of email address which have received messages" do
+      mailboxes = RedisMail.mailboxes
+      mailboxes.should have(2).recipients
+      mailboxes.should include("someone@example.com")
+      mailboxes.should include("another@example.com")
+    end
+  end
+
   def send(recipient, subject)
     message = Mail.new {
         to recipient

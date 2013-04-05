@@ -19,8 +19,12 @@ module RedisMail
   end
 
   def clear_all
-    redis.smembers(:mailboxes).each do |mailbox|
+    mailboxes.each do |mailbox|
       clear_mailbox mailbox
     end
+  end
+
+  def mailboxes
+    redis.smembers :mailboxes
   end
 end
