@@ -8,9 +8,8 @@ Gem::Specification.new do |gem|
   gem.version       = RedisMail::VERSION
   gem.authors       = ["Joshua Flanagan"]
   gem.email         = ["jflanagan@peopleadmin.com"]
-  gem.description   = %q{Provides a Redis-backed delivery_method for Mail gem}
-  gem.summary       = %q{Useful in test scenarios when you do not want mails to
-  be delivered, but you do need programmatic access to them.}
+  gem.description   = %q{A Redis-backed delivery_method for Mail gem}
+  gem.summary       = %q{Stores emails in Redis for easy retrieval in test scenarios.}
   gem.homepage      = "https://github.com/PeopleAdmin/redis_mail"
 
   gem.files         = `git ls-files`.split($/)
