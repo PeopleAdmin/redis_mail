@@ -17,4 +17,10 @@ module RedisMail
     redis.del "mailbox:#{recipient}"
     redis.srem :mailboxes, recipient
   end
+
+  def clear_all
+    redis.smembers(:mailboxes).each do |mailbox|
+      clear_mailbox mailbox
+    end
+  end
 end
