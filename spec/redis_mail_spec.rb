@@ -81,6 +81,30 @@ describe RedisMail do
     end
   end
 
+  describe ".deliveries_count" do
+    before do
+      send "someone@example.com", "Beta"
+      send "another@example.com", "Gamma"
+      send "someone@example.com", "Alpha"
+    end
+
+    it "returns the number of messages received" do
+      RedisMail.deliveries_count.should == 3
+    end
+  end
+
+  describe ".deliveries_count_to" do
+    before do
+      send "someone@example.com", "Beta"
+      send "another@example.com", "Gamma"
+      send "someone@example.com", "Alpha"
+    end
+
+    it "returns the number of messages sent to a given address" do
+      RedisMail.deliveries_count_to("someone@example.com").should == 2
+    end
+  end
+
   describe ".mailboxes" do
     before do
       send "someone@example.com", "Beta"

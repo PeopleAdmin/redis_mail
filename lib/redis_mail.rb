@@ -35,4 +35,14 @@ module RedisMail
   def deliveries
     mailboxes.map{|recipient| deliveries_to(recipient)}.flatten
   end
+
+  def deliveries_count
+    mailboxes.reduce(0){|sum, recipient|
+      sum + redis.llen("mailbox:#{recipient}")
+    }
+  end
+
+  def deliveries_count_to(recipient)
+    redis.llen("mailbox:#{recipient}")
+  end
 end
