@@ -24,6 +24,10 @@ describe RedisMail do
       RedisMail.clear_mailbox "someone@example.com"
       redis.smembers("redis_mail:mailboxes").should_not include("someone@example.com")
     end
+
+    it "returns true when messages are cleared" do
+      RedisMail.clear_mailbox("someone@example.com").should be_true
+    end
   end
 
   describe ".clear_all" do
@@ -47,6 +51,10 @@ describe RedisMail do
       redis.scard("redis_mail:mailboxes").should == 3
       RedisMail.clear_all
       redis.scard("redis_mail:mailboxes").should == 0
+    end
+
+    it "returns true when messages are cleared" do
+      RedisMail.clear_all.should be_true
     end
   end
 
@@ -117,6 +125,36 @@ describe RedisMail do
       mailboxes.should have(2).recipients
       mailboxes.should include("someone@example.com")
       mailboxes.should include("another@example.com")
+    end
+  end
+
+  context "when no messages have been sent" do
+    it "returns an empty array for .mailboxes" do
+      RedisMail.mailboxes.should == []
+    end
+
+    it "returns an empty array for .deliveries" do
+      RedisMail.deliveries.should == []
+    end
+
+    it "returns an empty array for .deliveries_to" do
+      RedisMail.deliveries_to("someone@example.com").should == []
+    end
+
+    it "returns 0 for .deliveries_count" do
+      RedisMail.deliveries_count.should == 0
+    end
+
+    it "returns 0 for .deliveries_count_to" do
+      RedisMail.deliveries_count_to("someone@example.com").should == 0
+    end
+
+    it "returns false for .clear_mailbox" do
+      RedisMail.clear_mailbox("someone@example.com").should be_false
+    end
+
+    it "returns false for .clear_all" do
+      RedisMail.clear_all.should be_false
     end
   end
 

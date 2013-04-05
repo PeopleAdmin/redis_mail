@@ -19,8 +19,8 @@ module RedisMail
   end
 
   def clear_all
-    mailboxes.each do |mailbox|
-      clear_mailbox mailbox
+    mailboxes.reduce(false) do |cleared,mailbox|
+      clear_mailbox(mailbox) || cleared
     end
   end
 
