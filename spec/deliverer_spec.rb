@@ -3,7 +3,7 @@ require 'redis'
 require 'redis_mail'
 
 describe RedisMail::Deliverer do
-  let(:redis) { Redis.new.tap {|r| r.select 15} }
+  let(:redis) { RedisMail.redis = Redis.new.tap {|r| r.select 15} }
 
   before { redis.flushdb }
 
@@ -20,7 +20,7 @@ describe RedisMail::Deliverer do
     }
 
     before do
-      sent_message.delivery_method(RedisMail::Deliverer, {redis: redis})
+      sent_message.delivery_method(RedisMail::Deliverer, {})
       sent_message.deliver!
     end
 
