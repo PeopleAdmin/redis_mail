@@ -27,4 +27,12 @@ module RedisMail
   def mailboxes
     redis.smembers :mailboxes
   end
+
+  def deliveries_to(recipient)
+    redis.lrange "mailbox:#{recipient}", 0, -1
+  end
+
+  def deliveries
+    mailboxes.map{|recipient| deliveries_to(recipient)}.flatten
+  end
 end

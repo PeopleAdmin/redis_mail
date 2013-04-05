@@ -50,6 +50,37 @@ describe RedisMail do
     end
   end
 
+  describe ".deliveries_to" do
+    before do
+      send "someone@example.com", "Beta"
+      send "another@example.com", "Gamma"
+      send "someone@example.com", "Alpha"
+    end
+
+    it "returns the messages for a given recipient, in chronological order" do
+      deliveries = RedisMail.deliveries_to "someone@example.com"
+      deliveries.should have(2).items
+      deliveries[0].should include("Beta")
+      deliveries[1].should include("Alpha")
+    end
+  end
+
+  describe ".deliveries" do
+    before do
+      send "someone@example.com", "Beta"
+      send "another@example.com", "Gamma"
+      send "someone@example.com", "Alpha"
+    end
+
+    it "returns all messages received" do
+      deliveries = RedisMail.deliveries
+      deliveries.should have(3).items
+      deliveries.any?{|d| d.include?("Alpha")}.should be_true
+      deliveries.any?{|d| d.include?("Beta")}.should be_true
+      deliveries.any?{|d| d.include?("Gamma")}.should be_true
+    end
+  end
+
   describe ".mailboxes" do
     before do
       send "someone@example.com", "Beta"
