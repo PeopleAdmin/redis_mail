@@ -12,4 +12,9 @@ module RedisMail
     raise "RedisMail.redis must be set to a Redis connection" unless @redis
     @redis
   end
+
+  def clear_mailbox(recipient)
+    redis.del "mailbox:#{recipient}"
+    redis.srem :mailboxes, recipient
+  end
 end
