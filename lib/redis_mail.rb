@@ -14,7 +14,7 @@ module RedisMail
   end
 
   def clear_mailbox(recipient)
-    redis.del "mailbox:#{recipient}"
+    redis.del mailbox_key(recipient)
     redis.srem :mailboxes, recipient
   end
 
@@ -29,7 +29,7 @@ module RedisMail
   end
 
   def deliveries_to(recipient)
-    redis.lrange "mailbox:#{recipient}", 0, -1
+    redis.lrange mailbox_key(recipient), 0, -1
   end
 
   def deliveries
@@ -38,16 +38,22 @@ module RedisMail
 
   def deliveries_count
     mailboxes.reduce(0){|sum, recipient|
-      sum + redis.llen("mailbox:#{recipient}")
+      sum + redis.llen(mailbox_key(recipient))
     }
   end
 
   def deliveries_count_to(recipient)
-    redis.llen("mailbox:#{recipient}")
+    redis.llen(mailbox_key(recipient))
   end
 
   def deliver(recipient, message)
     redis.sadd :mailboxes, recipient
-    redis.rpush "mailbox:#{recipient}", message
+    redis.rpush mailbox_key(recipient), message
+  end
+
+  private
+
+  def mailbox_key(recipient)
+    "mailbox:#{recipient}"
   end
 end
