@@ -1,5 +1,6 @@
 require "redis_mail/version"
 require "redis_mail/deliverer"
+require "redis_mail/railtie" if defined?(Rails::Railtie)
 
 module RedisMail
   extend self
