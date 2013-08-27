@@ -4,13 +4,13 @@ script: bundle exec rspec
 rvm:
 - 1.9.3
 services:
-  - redis-server
+- redis-server
 notifications:
   email: false
   campfire:
     rooms:
-    - secure: ! 'j8CJevgIDpE/cQwKm9z5uVY8nXmvQFOoQP/OIieEBMPd7IaSv6YVNMmjHju3
+    - secure: ! 'OuZ21jd2xpXCL61aCPcKmvN8ugQyRPLJmfuwMgYmlm4bJR3FYZPA6lALROhU
 
-        rKVL0471g0/+hfK1etfxeaygHjLVg1GmOnYH/CK97l3I3BnP5pEu7zz0wSs3
+        KAfVw0whAb5G+ojC7l0B6t2mA9YbDdg19+m1vzUF03E+5nMSYXvV6wl8Gcb6
 
-        5Legz1OnsK11U1FAjfSkv088V3/IgyTVegU/SaSiSi03uUsRSVs='
+        rFpdHc9oVdNe0GucqDHB8YQjw+ToXjvJlz07qyFf3KIAW2bPayA='
