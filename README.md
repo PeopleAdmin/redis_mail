@@ -61,7 +61,7 @@ Clears all received messages for any recipient. Run this between each test!
 
 Clears all recieved messages for a specific recipient.
 
-### RedisMail.delivieries_count
+### RedisMail.deliveries_count
 
 Total number of messages delivered to any recipient.
 
@@ -71,11 +71,11 @@ Example usage:
     invoke_action_in_application_that_sends_two_emails
     raise "Expected emails missing" unless RedisMail.deliveries_count == 2
 
-### RedisMail.delivieries_count_to(recipient)
+### RedisMail.deliveries_count_to(recipient)
 
 Total number of messages delivered to a specific recipient.
 
-### RedisMail.delivieries
+### RedisMail.deliveries
 
 An array of all messages delivered to any receipient. Each message can be
 parsed using classes provided by the `Mail` gem, for finer grained assertions.
@@ -87,7 +87,7 @@ Example usage:
     sent_message = Mail.new(RedisMail.deliveries.first)
     raise "Unexpected subject" unless sent_message.subject == "Welcome!"
 
-### RedisMail.delivieries_to
+### RedisMail.deliveries_to
 
 An array of messages delivered to a given recipient. Messages are ordered from
 oldest to newest.
