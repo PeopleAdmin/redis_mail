@@ -48,7 +48,7 @@ module RedisMail
   end
 
   def deliver(recipient, message)
-    redis.sadd :mailboxes, recipient
+    redis.sadd? :mailboxes, recipient
     redis.rpush mailbox_key(recipient), message
   end
 
